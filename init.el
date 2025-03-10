@@ -39,7 +39,8 @@
 (setopt display-fill-column-indicator-column 80)
 (add-hook 'prog-mode-hook #'display-fill-column-indicator-mode)
 
-(load-theme 'afternoon t)
+(when (require 'afternoon-theme nil 'noerror)
+  (load-theme 'afternoon t))
 
 (use-package go-ts-mode
   :ensure t
