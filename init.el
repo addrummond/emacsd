@@ -37,7 +37,8 @@
 	      ("s-." . open-init-el)
 	      ("s-;" . fill-paragraph)
               ("C-a" . move-beginning-of-line)
-              ("C-e" . move-end-of-line)))
+              ("C-e" . move-end-of-line)
+	      ("U" . undo-redo)))
 
 (setopt display-fill-column-indicator-column 80)
 (add-hook 'prog-mode-hook #'display-fill-column-indicator-mode)
@@ -70,13 +71,23 @@
   (go-ts-mode . ad/go-lsp-start)
 )
 
+(defun ad/format-project (p)
+  (if (null p)
+      "null"
+    (propertize
+     (concat " " (string-trim (with-output-to-string (print p))))
+     'font-lock-face
+     '(:foreground "green"))))
+(defconst ad/custom-mode-string
+  '(:eval (ad/format-project (project-current))))
+(add-to-list 'global-mode-string ad/custom-mode-string 'APPEND)
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   '(afternoon-theme evil flycheck lsp-mode lsp-ui magit)))
+ '(package-selected-packages '(afternoon-theme evil flycheck lsp-mode lsp-ui magit)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
