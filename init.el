@@ -11,6 +11,10 @@
 ; allow use of a single press of ESC to cancel stuff
 (define-key global-map (kbd "<escape>") 'keyboard-escape-quit)    
 
+; ensure absence of obnoxious bell
+(setq visible-bell nil)
+(setq ring-bell-function #'ignore)
+
 (defun open-init-el()
   (interactive)
   (find-file user-init-file)
@@ -28,11 +32,10 @@
 (winner-mode 1)
 (keymap-global-set "s-[" 'winner-undo)
 
-; override default key bindings to allow C-a and C-e to move to beginning and
-; end of line
 (use-package evil
   :bind (:map evil-motion-state-map
 	      ("s-." . open-init-el)
+	      ("s-;" . fill-paragraph)
               ("C-a" . move-beginning-of-line)
               ("C-e" . move-end-of-line)))
 
