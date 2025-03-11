@@ -43,12 +43,25 @@
 	 ("s-." . open-init-el)
 	 ("s-;" . fill-paragraph)
 	 ("s-\\" . (lambda () (interactive) (ad/manually-format-whole-file)))
+	 ("s-p" . neotree-toggle)
          ("C-a" . move-beginning-of-line)
 	 ("C-e" . move-end-of-line)
 	 ("U" . undo-redo)))
 
 (setopt display-fill-column-indicator-column 80)
 (add-hook 'prog-mode-hook #'display-fill-column-indicator-mode)
+
+(require 'neotree)
+(global-set-key [f8] 'neotree-toggle)
+(evil-define-key 'normal neotree-mode-map (kbd "TAB") 'neotree-enter)
+(evil-define-key 'normal neotree-mode-map (kbd "SPC") 'neotree-quick-look)
+(evil-define-key 'normal neotree-mode-map (kbd "q") 'neotree-hide)
+(evil-define-key 'normal neotree-mode-map (kbd "RET") 'neotree-enter)
+(evil-define-key 'normal neotree-mode-map (kbd "g") 'neotree-refresh)
+(evil-define-key 'normal neotree-mode-map (kbd "n") 'neotree-next-line)
+(evil-define-key 'normal neotree-mode-map (kbd "p") 'neotree-previous-line)
+(evil-define-key 'normal neotree-mode-map (kbd "A") 'neotree-stretch-toggle)
+(evil-define-key 'normal neotree-mode-map (kbd "H") 'neotree-hidden-file-toggle)
 
 (when (require 'afternoon-theme nil 'noerror)
   (load-theme 'afternoon t))
@@ -90,7 +103,8 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(package-selected-packages '(afternoon-theme evil flycheck lsp-mode lsp-ui magit)))
+ '(package-selected-packages
+   '(afternoon-theme evil flycheck lsp-mode lsp-ui magit neotree)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
